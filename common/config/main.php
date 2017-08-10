@@ -21,6 +21,17 @@ return [
                 ],
             ],
         ],
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'redis',
+            'port' => 6379,
+            'database' => 0,
+        ],
+        'queue' => [
+            'class' => \yii\queue\redis\Queue::class,
+            'redis' => 'redis', // Компонент подключения к Redis или его конфиг
+            'channel' => 'queue', // Ключ канала очереди
+        ],
     ],
     'modules' => [
         'user' => [
