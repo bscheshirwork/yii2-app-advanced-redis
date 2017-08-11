@@ -8,7 +8,8 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => 'yii\redis\Cache',
+            'redis' => 'redis' // id of the connection application component
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
