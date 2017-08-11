@@ -8,6 +8,9 @@ return [
             'password' => 'yii2advanced',
             'charset' => 'utf8',
         ],
+        'redis' => [
+            'password' => 'yii2advancedredis',
+        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',
