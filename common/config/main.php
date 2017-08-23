@@ -33,6 +33,10 @@ return [
             'redis' => 'redis', // Компонент подключения к Redis или его конфиг
             'channel' => 'queue', // Ключ канала очереди
         ],
+        'session' => [
+            'class' => 'bscheshirwork\redis\Session',
+            'redis' => 'redis' // id of the connection application component
+        ],
     ],
     'modules' => [
         'user' => [
