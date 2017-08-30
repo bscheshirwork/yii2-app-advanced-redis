@@ -5,7 +5,10 @@ namespace components\queue;
 
 
 /**
- * Class SetStatusJob.
+ * Class SendMailJob. Use it in 'mailer' component instead of \yii\swiftmailer\Mailer with all old settings.
+ * Messages can be form, serialize and stored in queue.
+ * Workers will be unserialize and send stored mail.
+ * Each mail message will be send separated.
  */
 class SendMailJob extends \yii\swiftmailer\Mailer implements \yii\queue\Job
 {
