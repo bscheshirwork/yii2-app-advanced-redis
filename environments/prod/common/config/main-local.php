@@ -12,8 +12,8 @@ return [
             'password' => 'yii2advancedredis',
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'viewPath' => '@common/mail',
+            // 'class' => 'yii\swiftmailer\Mailer',
+            // 'viewPath' => '@common/mail',
         ],
     ],
 ];

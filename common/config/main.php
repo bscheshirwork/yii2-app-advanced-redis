@@ -37,6 +37,10 @@ return [
             'class' => 'bscheshirwork\redis\Session',
             'redis' => 'redis' // id of the connection application component
         ],
+        'mailer' => [
+            'class' => 'components\queue\SendMailJob',// class SendMailJob extends \yii\swiftmailer\Mailer implements \yii\queue\Job
+            'viewPath' => '@common/mail',
+        ],
     ],
     'modules' => [
         'user' => [
