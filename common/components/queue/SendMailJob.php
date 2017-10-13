@@ -10,7 +10,7 @@ namespace components\queue;
  * Workers will be unserialize and send stored mail.
  * Each mail message will be send separated.
  */
-class SendMailJob extends \yii\swiftmailer\Mailer implements \yii\queue\Job
+class SendMailJob extends \yii\swiftmailer\Mailer implements \yii\queue\JobInterface
 {
 
     private $_message;
