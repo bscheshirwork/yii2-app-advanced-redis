@@ -7,6 +7,7 @@ return [
             'username' => 'yii2advanced',
             'password' => 'yii2advanced',
             'charset' => 'utf8',
+            'enableSchemaCache' => true,
         ],
         'redis' => [
             'password' => 'yii2advancedredis',
