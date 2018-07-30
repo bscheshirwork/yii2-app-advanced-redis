@@ -9,8 +9,11 @@ $params = array_merge(
 return [
     'id' => 'app-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
     'controllerNamespace' => 'console\controllers',
+    'bootstrap' => [
+        'log',
+        'queue', // Компонент регистрирует свои консольные команды
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',

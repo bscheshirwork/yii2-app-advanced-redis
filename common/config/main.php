@@ -8,7 +8,8 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => 'yii\redis\Cache',
+            'redis' => 'redis' // id of the connection application component
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
@@ -21,6 +22,25 @@ return [
                     'basePath' => '@common/messages',
                 ],
             ],
+        ],
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'redis',
+            'port' => 6379,
+            'database' => 0,
+        ],
+        'queue' => [
+            'class' => \yii\queue\redis\Queue::class,
+            'redis' => 'redis', // Компонент подключения к Redis или его конфиг
+            'channel' => 'queue', // Ключ канала очереди
+        ],
+        'session' => [
+            'class' => 'bscheshirwork\redis\Session',
+            'redis' => 'redis' // id of the connection application component
+        ],
+        'mailer' => [
+            'class' => 'components\queue\SendMailJob',// class SendMailJob extends \yii\swiftmailer\Mailer implements \yii\queue\Job
+            'viewPath' => '@common/mail',
         ],
     ],
     'modules' => [
