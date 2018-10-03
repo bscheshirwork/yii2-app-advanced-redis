@@ -2,7 +2,7 @@
 
 namespace frontend\tests\functional;
 
-use dektrium\user\models\LoginForm;
+use Da\User\Form\LoginForm;
 use frontend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
 use common\tests\Page\Login as LoginPage;
@@ -29,10 +29,11 @@ class LoginCest
 
     /**
      * @param FunctionalTester $I
+     * @throws \yii\base\InvalidConfigException
      */
     public function loginUser(FunctionalTester $I)
     {
-        $model = \Yii::createObject(LoginForm::className());
+        $model = \Yii::createObject(LoginForm::class);
         $page = new LoginPage($I);
 
         $I->amGoingTo('try to login with empty credentials');

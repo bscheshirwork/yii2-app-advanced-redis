@@ -12,12 +12,12 @@ class Recovery
      * public static $usernameField = '#username';
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
+    public static $emailField = 'form[action*="request"] input[name*="email"]';
 
-    public static $emailField = '#recovery-form-email';
     /**
-     * @see \dektrium\user\Module::$urlRules
+     * @see \Da\User\Module::$urlRules
      */
-    public static $submitButton = 'form[id*="recovery"] button[type=submit]'; // <form id="password-recovery-form" action="/index-test.php?r=user%2Frecovery%2Frequest" method="post">
+    public static $submitButton = 'form[action*="request"] button[type=submit]'; // <form id="password-recovery-form" action="/index-test.php?r=user%2Frecovery%2Frequest" method="post">
 
     /**
      * @var \Codeception\Actor

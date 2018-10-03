@@ -5,8 +5,8 @@ namespace frontend\tests\functional;
 use frontend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
 use frontend\fixtures\TokenFixture;
-use dektrium\user\models\User;
-use dektrium\user\models\Token;
+use Da\User\Model\User;
+use Da\User\Model\Token;
 use common\tests\Page\Login as LoginPage;
 use frontend\tests\Page\Recovery as RecoveryPage;
 use frontend\tests\Page\RecoveryReset as ResetPage;
@@ -72,7 +72,7 @@ class RecoveryCest
         $user = $I->grabFixture('user', 'user_with_recovery_token');
         $token = $I->grabRecord(Token::class, ['user_id' => $user->id, 'type' => Token::TYPE_RECOVERY]);
         $resetPage->reset('newpass', ['id' => $user->id, 'code' => $token->code]);
-        $I->see(Yii::t('user', 'Your password has been changed successfully.'));
+        $I->see(Yii::t('user', 'Password has been changed'));
 
         $loginPage->login($user->email, 'qwerty');
         $I->see(Yii::t('user', 'Invalid login or password'));

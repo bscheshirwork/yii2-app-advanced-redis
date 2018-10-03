@@ -14,9 +14,9 @@ class UpdateUserAccount
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
 
-    public static $usernameField = '#user-username';
-    public static $emailField = '#user-email';
-    public static $passwordField = '#user-password';
+    public static $usernameField = 'form[action*="update"] input[name*="username"]';
+    public static $emailField = 'form[action*="update"] input[name*="email"]';
+    public static $passwordField = 'form[action*="update"] input[name*="password"]';
     public static $saveButton = 'form[action*="update"] button[type=submit]';
 
     /**

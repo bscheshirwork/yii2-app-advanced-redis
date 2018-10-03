@@ -52,11 +52,6 @@ AppAsset::register($this);
                         'url' => ['/rbac'],
                         'linkOptions' => ['target' => '_blank'],
                     ],
-                    ['label' =>  Yii::t('main', 'Administrate'), 'url' => ['/admin']],
-                    ['label' =>  Yii::t('main', 'Routes'), 'url' => ['/admin/route']],
-                    ['label' =>  Yii::t('main', 'Permissions'), 'url' => ['/admin/permission']],
-                    ['label' =>  Yii::t('main', 'Menu'), 'url' => ['/admin/menu']],
-                    ['label' =>  Yii::t('main', 'Roles'), 'url' => ['/admin/role']],
                 ],
             ];
         }
@@ -66,26 +61,27 @@ AppAsset::register($this);
         }
 
         $menuItems[] = [
-            'label' => Yii::$app->user->identity->username,
+            'label' => Yii::$app->user->identity->username ?? '',
             'options' => ['class' => 'header'],
             'url' => '#',
             'items' => [
-                ['label' => Yii::$app->user->identity->username, 'options' => ['class' => 'header']],
+                ['label' => Yii::$app->user->identity->username ?? '', 'options' => ['class' => 'header']],
                 ['label' =>  Yii::t('main', 'Profile'), 'url' => ['/user/settings/profile']],
                 ['label' =>  Yii::t('main', 'Account'), 'url' => ['/user/settings/account']],
                 '<li>'
                 . Html::beginForm(['/user/security/logout'], 'post')
                 . Html::submitButton(
-                    Yii::t('main', 'Logout ({username})', ['username' => Yii::$app->user->identity->username]),
+                    Yii::t('main', 'Logout ({username})', ['username' => Yii::$app->user->identity->username ?? '']),
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>',
             ],
         ];
-
-        if (Yii::$app->session->has(\dektrium\user\controllers\AdminController::ORIGINAL_USER_SESSION_KEY)){
-            $menuItems[] = '<li>' . Html::beginForm(['/user/admin/switch'], 'post', ['class' => 'navbar-form'])
+        /** @var Da\User\Module $module */
+        $module = Yii::$app->getModule('user');
+        if(Yii::$app->session->has($module->switchIdentitySessionKey)) {
+            $menuItems[] = '<li>' . Html::beginForm(['/user/admin/switch-identity'], 'post', ['class' => 'navbar-form'])
                 . Html::submitButton('<span class="glyphicon glyphicon-user"></span> ' . Yii::t('main', 'Back to original user'),
                     ['class' => 'btn btn-link']
                 ) . Html::endForm() . '</li>';

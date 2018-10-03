@@ -13,9 +13,9 @@ class Login
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
 
-    public static $usernameField = '#login-form #login-form-login';
-    public static $passwordField = '#login-form input[type=password]';
-    public static $loginButton = '#login-form button[type=submit]';
+    public static $usernameField = 'form[action*="login"] input[name*="login"] ';
+    public static $passwordField = 'form[action*="login"] input[type=password]';
+    public static $loginButton = 'form[action*="login"] button[type=submit]';
 
     /**
      * @var \Codeception\Actor

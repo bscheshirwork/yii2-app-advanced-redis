@@ -13,11 +13,11 @@ class RecoveryReset
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
 
-    public static $newPasswordField = '#recovery-form-password';
+    public static $newPasswordField = 'form[action*="reset"] input[name*="password"]';
     /**
-     * @see \dektrium\user\Module::$urlRules
+     * @see \Da\User\Module::$urlRules
      */
-    public static $submitButton = 'form[action*="recover"] button[type=submit]';
+    public static $submitButton = 'form[action*="reset"] button[type=submit]';
 
     /**
      * @var \Codeception\Actor

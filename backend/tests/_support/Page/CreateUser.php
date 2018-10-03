@@ -13,9 +13,9 @@ class CreateUser
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
 
-    public static $usernameField = '#user-username';
-    public static $emailField = '#user-email';
-    public static $passwordField = '#user-password';
+    public static $usernameField = 'form[action*="create"] input[name*="username"]';
+    public static $emailField = 'form[action*="create"] input[name*="email"]';
+    public static $passwordField = 'form[action*="create"] input[name*="password"]';
     public static $saveButton = 'form[action*="create"] button[type=submit]';
 
     /**

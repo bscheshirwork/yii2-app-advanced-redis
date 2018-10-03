@@ -4,9 +4,9 @@ namespace backend\tests\functional;
 
 use backend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
-use dektrium\user\models\User;
 use common\tests\Page\Login as LoginPage;
 use backend\tests\Page\UpdateUserAccount as UpdatePage;
+use Da\User\Model\User;
 use Yii;
 
 class UpdateUserAccountCest

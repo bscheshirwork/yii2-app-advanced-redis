@@ -16,21 +16,29 @@ return [
     ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'controllerMap' => [
         'fixture' => [
-            'class' => 'yii\console\controllers\FixtureController',
+            'class' => yii\console\controllers\FixtureController::class,
             'namespace' => 'common\fixtures',
-          ],
+            'globalFixtures' => [
+                [
+                    'class' => yii\test\InitDbFixture::class,
+                    'initScript' => '@app/fixtures/initdb.php'
+                ],
+            ],
+        ],
         'migrate' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            'class' => yii\console\controllers\MigrateController::class,
             // Since version 2.0.12 an array can be specified for loading migrations from multiple sources.
             'migrationPath' => [
-                '@yii/rbac/migrations/',
-                '@dektrium/user/migrations',
-                '@mdm/admin/migrations',
                 '@app/migrations',
+                '@yii/rbac/migrations/',
+                '@mdm/admin/migrations',
+            ],
+            'migrationNamespaces' => [
+                'Da\User\Migration',
             ],
         ],
     ],

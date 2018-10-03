@@ -5,8 +5,8 @@ namespace frontend\tests\functional;
 use frontend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
 use frontend\fixtures\TokenFixture;
-use dektrium\user\models\User;
-use dektrium\user\models\Token;
+use Da\User\Model\User;
+use Da\User\Model\Token;
 use frontend\tests\Page\RegistrationConfirm as ConfirmPage;
 use Yii;
 

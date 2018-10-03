@@ -4,12 +4,12 @@ namespace frontend\tests\acceptance;
 use frontend\tests\AcceptanceTester;
 use common\fixtures\UserFixture;
 use frontend\fixtures\ProfileFixture;
-use dektrium\user\models\User;
-use dektrium\user\models\Token;
+use Da\User\Model\User;
+use Da\User\Model\Token;
 use common\tests\Page\Login as LoginPage;
 use frontend\tests\Page\UpdateSelfAccount as UpdatePage;
+use frontend\tests\Page\ChangeEmailConfirm as ConfirmPage;
 use Yii;
-use yii\helpers\Html;
 
 class UpdateSelfAccountCest
 {
@@ -39,10 +39,11 @@ class UpdateSelfAccountCest
     public function updateSelfAccount(AcceptanceTester $I)
     {
         $loginPage = new LoginPage($I);
+        $confirmPage = new ConfirmPage($I);
         $user = $I->grabFixture('user', 'user');
         $loginPage->login($user->email, 'qwerty');
         $I->wait(2); // wait for page to be opened
-        $I->makeScreenshot('updateSelfAccount_01_login');
+        $I->makeScreenshot('updateSelfAccount_010_login');
 
         $I->wantTo('ensure that self account update works');
 
@@ -51,7 +52,7 @@ class UpdateSelfAccountCest
         $I->amGoingTo('try to update self account with empty fields');
         $page->update('', '', '', '');
         $I->wait(4); // wait for page to be opened with all errors
-        $I->makeScreenshot('updateSelfAccount_02_update_validation_error');
+        $I->makeScreenshot('updateSelfAccount_020_update_validation_error');
         $I->expectTo('see validations errors');
         $I->see(Yii::t('yii', '{attribute} cannot be blank.', ['attribute' => Yii::t('user', 'Username')]));
         $I->see(Yii::t('yii', '{attribute} cannot be blank.', ['attribute' => Yii::t('user', 'Email')]));
@@ -60,7 +61,7 @@ class UpdateSelfAccountCest
         $I->amGoingTo('check that email is changing properly');
         $page->update($user->username, 'new_user@example.com', 'qwerty');
         $I->wait(2); // wait for page to be opened
-        $I->makeScreenshot('updateSelfAccount_03_email_send');
+        $I->makeScreenshot('updateSelfAccount_030_email_send');
         $I->seeRecord(User::class, ['email' => $user->email, 'unconfirmed_email' => 'new_user@example.com']);
         $I->see(Yii::t('user', 'A confirmation message has been sent to your new email address'));
         $user = $I->grabRecord(User::class, ['id' => $user->id]);
@@ -69,19 +70,24 @@ class UpdateSelfAccountCest
         $I->click($user->username);
         $I->click(Yii::t('main', 'Logout ({username})', ['username' => $user->username]));
         $I->wait(2); // wait for page to be opened
-        $I->makeScreenshot('updateSelfAccount_04_logout');
+        $I->makeScreenshot('updateSelfAccount_040_logout');
 
         $I->amGoingTo('log in using new email address before clicking the confirmation link');
         $loginPage->login('new_user@example.com', 'qwerty');
         $I->wait(2); // wait for page to be opened
-        $I->makeScreenshot('updateSelfAccount_05_login_new_email_fail');
+        $I->makeScreenshot('updateSelfAccount_050_login_new_email_fail');
         $I->see(Yii::t('user', 'Invalid login or password'));
 
+        $I->amGoingTo('Confirm new email address by clicking the confirmation link');
+        $confirmPage->check(['id' => $token->user_id, 'code' => $token->code]);
+        $I->wait(2); // wait for page to be opened
+        $I->see(Yii::t('user', 'Your email address has been changed'));
+        $I->makeScreenshot('updateSelfAccount_051_after_confirm_new_email');
+
         $I->amGoingTo('log in using new email address after clicking the confirmation link');
-        $user->attemptEmailChange($token->code);
         $loginPage->login('new_user@example.com', 'qwerty');
         $I->wait(2); // wait for page to be opened
-        $I->makeScreenshot('updateSelfAccount_06_login_new_email_success');
+        $I->makeScreenshot('updateSelfAccount_060_login_new_email_success');
         $I->see($user->username);
         $I->seeRecord(User::class, [
             'id' => 1,
@@ -92,7 +98,7 @@ class UpdateSelfAccountCest
         $I->amGoingTo('reset email changing process');
         $page->update($user->username, 'user@example.com', 'qwerty');
         $I->wait(2); // wait for page to be opened
-        $I->makeScreenshot('updateSelfAccount_07_email_send');
+        $I->makeScreenshot('updateSelfAccount_070_email_send');
         $I->see(Yii::t('user', 'A confirmation message has been sent to your new email address'));
         $I->seeRecord(User::class, [
             'id' => 1,
@@ -101,7 +107,7 @@ class UpdateSelfAccountCest
         ]);
         $page->update($user->username, 'new_user@example.com', 'qwerty');
         $I->wait(2); // wait for page to be opened
-        $I->makeScreenshot('updateSelfAccount_08_email_data_revert');
+        $I->makeScreenshot('updateSelfAccount_080_email_data_revert');
         $I->see(Yii::t('user', 'Your account details have been updated'));
         $I->seeRecord(User::class, [
             'id' => 1,
@@ -112,7 +118,7 @@ class UpdateSelfAccountCest
         $I->amGoingTo('change username and password');
         $page->update('nickname', 'new_user@example.com', 'qwerty', '123654');
         $I->wait(2); // wait for page to be opened
-        $I->makeScreenshot('updateSelfAccount_09_change_data');
+        $I->makeScreenshot('updateSelfAccount_090_change_data');
         $I->see(Yii::t('user', 'Your account details have been updated'));
         $I->seeRecord(User::class, [
             'username' => 'nickname',
@@ -122,12 +128,12 @@ class UpdateSelfAccountCest
         $I->click('nickname');
         $I->click(Yii::t('main', 'Logout ({username})', ['username' => 'nickname']));
         $I->wait(2); // wait for page to be opened
-        $I->makeScreenshot('updateSelfAccount_10_logout');
+        $I->makeScreenshot('updateSelfAccount_100_logout');
 
         $I->amGoingTo('login with new credentials');
         $loginPage->login('nickname', '123654');
         $I->wait(2); // wait for page to be opened
-        $I->makeScreenshot('updateSelfAccount_11_login');
+        $I->makeScreenshot('updateSelfAccount_110_login');
         $I->see('nickname');
     }
 }

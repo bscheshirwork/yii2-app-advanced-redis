@@ -13,10 +13,10 @@ class UpdateSelfAccount
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
 
-    public static $usernameField = '#settings-form-username';
-    public static $emailField = '#settings-form-email';
-    public static $newPasswordField = '#settings-form-new_password';
-    public static $currentPasswordField = '#settings-form-current_password';
+    public static $usernameField = 'form[action*="account"] input[name*="username"]';
+    public static $emailField = 'form[action*="account"] input[name*="email"]';
+    public static $newPasswordField = 'form[action*="account"] input[name*="new_password"]';
+    public static $currentPasswordField = 'form[action*="account"] input[name*="current_password"]';
     public static $saveButton = 'form[action*="account"] button[type=submit]';
 
     /**

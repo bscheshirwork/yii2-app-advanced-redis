@@ -12,7 +12,7 @@ use frontend\tests\Page\Registration as RegistrationPage;
 use Yii;
 use yii\helpers\Html;
 
-class RegistrationCest
+class RegistrationGdprCest
 {
     /**
      * Load fixtures before db transaction begin
@@ -36,7 +36,7 @@ class RegistrationCest
         $moduleUser = \Yii::$app->getModule('user');
         $moduleUser->enableEmailConfirmation = true;
         $moduleUser->generatePasswords = false;
-        $moduleUser->enableGdprCompliance = false;
+        $moduleUser->enableGdprCompliance = true;
     }
 
     /**
@@ -50,25 +50,26 @@ class RegistrationCest
         $moduleUser = \Yii::$app->getModule('user');
         $moduleUser->enableEmailConfirmation = false;
         $moduleUser->generatePasswords = false;
-        $moduleUser->enableGdprCompliance = false;
+        $moduleUser->enableGdprCompliance = true;
 
         $model = \Yii::createObject(RegistrationForm::class);
         $page = new RegistrationPage($I);
 
         $I->amGoingTo('try to register with empty credentials');
-        $page->register('', '', '');
+        $page->register('', '', '', false);
         $I->see(Yii::t('yii', '{attribute} cannot be blank.', ['attribute' => $model->getAttributeLabel('username')]));
         $I->see(Yii::t('yii', '{attribute} cannot be blank.', ['attribute' => $model->getAttributeLabel('email')]));
         $I->see(Yii::t('yii', '{attribute} cannot be blank.', ['attribute' => $model->getAttributeLabel('password')]));
+        $I->see(Yii::t('user', 'Your consent is required to register'));
 
         $I->amGoingTo('try to register with already used email and username');
         $user = $I->grabFixture('user', 'user');
 
-        $page->register($user->email, $user->username, 'qwerty');
+        $page->register($user->email, $user->username, 'qwerty', true);
         $I->see(Html::encode(Yii::t('user', 'This username has already been taken')));
         $I->see(Html::encode(Yii::t('user', 'This email address has already been taken')));
 
-        $page->register('tester@example.com', 'tester', 'tester');
+        $page->register('tester@example.com', 'tester', 'tester', true);
         $I->see(Yii::t('user', 'Your account has been created'));
         $user = $I->grabRecord(User::class, ['email' => 'tester@example.com']);
         $I->assertTrue($user->isConfirmed);
@@ -88,10 +89,10 @@ class RegistrationCest
         /** @var \Da\User\Module $moduleUser */
         $moduleUser = \Yii::$app->getModule('user');
         $moduleUser->enableEmailConfirmation = true;
-        $moduleUser->enableGdprCompliance = false;
+        $moduleUser->enableGdprCompliance = true;
 
         $page = new RegistrationPage($I);
-        $page->register('tester@example.com', 'tester', 'tester');
+        $page->register('tester@example.com', 'tester', 'tester', true);
         $I->see(Yii::t('user', 'Your account has been created and a message with further instructions has been sent to your email'));
         $user  = $I->grabRecord(User::class, ['email' => 'tester@example.com']);
         $token = $I->grabRecord(Token::class, ['user_id' => $user->id, 'type' => Token::TYPE_CONFIRMATION]);
@@ -112,10 +113,10 @@ class RegistrationCest
         $moduleUser = \Yii::$app->getModule('user');
         $moduleUser->enableEmailConfirmation = false;
         $moduleUser->generatePasswords = true;
-        $moduleUser->enableGdprCompliance = false;
+        $moduleUser->enableGdprCompliance = true;
 
         $page = new RegistrationPage($I);
-        $page->register('tester@example.com', 'tester');
+        $page->register('tester@example.com', 'tester', null, true);
         $I->see(Yii::t('user', 'Your account has been created'));
         $user = $I->grabRecord(User::class, ['email' => 'tester@example.com']);
         $I->assertEquals('tester', $user->username);

@@ -5,7 +5,7 @@ use backend\tests\AcceptanceTester;
 use common\fixtures\UserFixture;
 use common\tests\Page\Login as LoginPage;
 use backend\tests\Page\UpdateUserAccount as UpdatePage;
-use dektrium\user\models\User;
+use Da\User\Model\User;
 use Yii;
 
 class UpdateUserAccountCest

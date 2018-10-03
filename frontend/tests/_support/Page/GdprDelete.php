@@ -1,11 +1,11 @@
 <?php
-namespace backend\tests\Page;
+namespace frontend\tests\Page;
 
 use yii\helpers\Url;
 
-class AdminRoutePage
+class GdprDelete
 {
-    public static $URL = '/admin/route/index';
+    public static $URL = '/user/settings/gdprdelete';
 
     /**
      * Declare UI map for this page here. CSS or XPath allowed.
@@ -13,8 +13,8 @@ class AdminRoutePage
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
 
-    public static $routeField = '#inp-route';
-    public static $addButton = '#btn-new';
+    public static $passwordField = 'form[action*="gdpr"] input[name*="password"]';
+    public static $submitButton = 'form[action*="gdpr"] button[type=submit]';
 
     /**
      * @var \Codeception\Actor
@@ -26,22 +26,23 @@ class AdminRoutePage
         $this->tester = $I;
     }
 
-    public function amOnPage(){
-        $I = $this->tester;
-        $I->amOnPage(Url::toRoute(self::$URL));
-    }
 
     /**
-     * @param $route
+     * Resend email action
+     * @param $password
+     * @return $this
      */
-    public function addRoute($route)
+    public function delete($password)
     {
         $I = $this->tester;
 
         $I->amOnPage(Url::toRoute(self::$URL));
 
-        $I->fillField(self::$routeField, $route);
-        $I->click(self::$addButton);
+        $I->fillField(self::$passwordField, $password);
+        $I->click(self::$submitButton);
+
+        return $this;
     }
+
 
 }

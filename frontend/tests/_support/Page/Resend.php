@@ -13,7 +13,7 @@ class Resend
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
 
-    public static $emailField = '#resend-form-email';
+    public static $emailField = 'form[action*="resend"] input[name*="email"]';
     public static $submitButton = 'form[action*="resend"] button[type=submit]';
 
     /**

@@ -2,14 +2,15 @@
 
 namespace frontend\tests\functional;
 
-use dektrium\user\models\SettingsForm;
 use frontend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
 use frontend\fixtures\ProfileFixture;
-use dektrium\user\models\User;
-use dektrium\user\models\Token;
+use Da\User\Form\SettingsForm;
+use Da\User\Model\User;
+use Da\User\Model\Token;
 use common\tests\Page\Login as LoginPage;
 use frontend\tests\Page\UpdateSelfAccount as UpdatePage;
+use frontend\tests\Page\ChangeEmailConfirm as ConfirmPage;
 use Yii;
 use yii\helpers\Html;
 
@@ -37,6 +38,7 @@ class UpdateSelfAccountCest
 
     /**
      * @param FunctionalTester $I
+     * @throws \yii\base\InvalidConfigException
      */
     public function updateSelfAccount(FunctionalTester $I)
     {
@@ -44,10 +46,11 @@ class UpdateSelfAccountCest
 
         $loginPage = new LoginPage($I);
         $page = new UpdatePage($I);
+        $confirmPage = new ConfirmPage($I);
 
         $user = $I->grabFixture('user', 'user');
         $I->amLoggedInAs($user);
-        $model = \Yii::createObject(SettingsForm::className()); //expect Yii::$app->user->identity
+        $model = \Yii::createObject(SettingsForm::class); //expect Yii::$app->user->identity
 
         $I->amGoingTo('try to update  self account with empty fields');
         $page->update('', '', '', '');
@@ -73,8 +76,10 @@ class UpdateSelfAccountCest
         $loginPage->login('new_user@example.com', 'qwerty');
         $I->see(Yii::t('user', 'Invalid login or password'));
 
+        $I->amGoingTo('Confirm new email address by clicking the confirmation link');
+        $confirmPage->check(['id' => $token->user_id, 'code' => $token->code]);
+
         $I->amGoingTo('log in using new email address after clicking the confirmation link');
-        $user->attemptEmailChange($token->code);
         $loginPage->login('new_user@example.com', 'qwerty');
         $I->see($user->username);
         $I->seeRecord(User::class, [

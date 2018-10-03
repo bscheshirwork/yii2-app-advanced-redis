@@ -35,12 +35,12 @@ class ResendCest
 
         $I->amGoingTo('try to resend token to non-existent user');
         $page->resend('foo@example.com');
-        $I->see(Yii::t('user', 'A message has been sent to your email address. It contains a confirmation link that you must click to complete registration.'));
+        $I->see(Yii::t('user', 'We couldn\'t re-send the mail to confirm your address. Please, verify is the correct email or if it has been confirmed already.'));
 
         $I->amGoingTo('try to resend token to already confirmed user');
         $user = $I->grabFixture('user', 'user');
         $page->resend($user->email);
-        $I->see(Yii::t('user', 'A message has been sent to your email address. It contains a confirmation link that you must click to complete registration.'));
+        $I->see(Yii::t('user', 'We couldn\'t re-send the mail to confirm your address. Please, verify is the correct email or if it has been confirmed already.'));
 
         $I->amGoingTo('try to resend token to unconfirmed user');
         $user = $I->grabFixture('user', 'unconfirmed');

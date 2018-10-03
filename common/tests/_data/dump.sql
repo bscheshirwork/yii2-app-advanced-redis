@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.0-dmr, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.12, for Linux (x86_64)
 --
 -- Host: localhost    Database: yii2advanced
 -- ------------------------------------------------------
--- Server version	8.0.0-dmr
+-- Server version	8.0.12
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+ SET NAMES utf8mb4 ;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,12 +21,13 @@
 
 DROP TABLE IF EXISTS `auth_assignment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `auth_assignment` (
   `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`item_name`,`user_id`),
+  KEY `idx-auth_assignment-user_id` (`user_id`),
   CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -37,7 +38,7 @@ CREATE TABLE `auth_assignment` (
 
 LOCK TABLES `auth_assignment` WRITE;
 /*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
-INSERT INTO `auth_assignment` VALUES ('admin','1',1484826479);
+INSERT INTO `auth_assignment` VALUES ('admin','1',1536745767);
 /*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -47,7 +48,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `auth_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `auth_item` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `type` smallint(6) NOT NULL,
@@ -69,7 +70,7 @@ CREATE TABLE `auth_item` (
 
 LOCK TABLES `auth_item` WRITE;
 /*!40000 ALTER TABLE `auth_item` DISABLE KEYS */;
-INSERT INTO `auth_item` VALUES ('admin',1,NULL,NULL,NULL,1484826479,1484826479),('administrateRbac',2,'Управление контролем доступа',NULL,NULL,1484826479,1484826479),('administrateUser',2,'Управление пользователями',NULL,NULL,1484826478,1484826478),('blockUser',2,'Заблокировать пользователя',NULL,NULL,1484826478,1484826478),('createUser',2,'Управление пользователями: Создать пользователя',NULL,NULL,1484826478,1484826478),('deleteUser',2,'Удалить пользователя',NULL,NULL,1484826478,1484826478),('showSelfProfile',2,'Просмотр своего профиля пользователя','isCurrentUser',NULL,1484826478,1484826478),('showUserProfile',2,'Просмотр профиля пользователя',NULL,NULL,1484826477,1484826477),('updateSelf',2,'Обновить своего пользователя',NULL,NULL,1484826478,1484826478),('updateSelfAccount',2,'Обновить свой аккаунт пользователя',NULL,NULL,1484826478,1484826478),('updateSelfPassword',2,'Обновить свой пароль пользователя',NULL,NULL,1484826478,1484826478),('updateSelfProfile',2,'Обновить свой профиль пользователя',NULL,NULL,1484826478,1484826478),('updateUser',2,'Обновить пользователя',NULL,NULL,1484826477,1484826477),('updateUserAccount',2,'Обновить аккаунт пользователя',NULL,NULL,1484826477,1484826477),('updateUserPassword',2,'Обновить пароль пользователя',NULL,NULL,1484826477,1484826477),('updateUserProfile',2,'Обновить профиль пользователя',NULL,NULL,1484826477,1484826477),('user',1,NULL,NULL,NULL,1484826479,1484826479);
+INSERT INTO `auth_item` VALUES ('admin',1,NULL,NULL,NULL,1536745767,1536745767),('administrateRbac',2,'Управление контролем доступа',NULL,NULL,1536745767,1536745767),('administrateUser',2,'Управление пользователями',NULL,NULL,1536745767,1536745767),('blockUser',2,'Заблокировать пользователя',NULL,NULL,1536745767,1536745767),('createUser',2,'Управление пользователями: Создать пользователя',NULL,NULL,1536745767,1536745767),('deleteUser',2,'Удалить пользователя',NULL,NULL,1536745767,1536745767),('showSelfProfile',2,'Просмотр своего профиля пользователя','isCurrentUser',NULL,1536745767,1536745767),('showUserProfile',2,'Просмотр профиля пользователя',NULL,NULL,1536745767,1536745767),('updateSelf',2,'Обновить своего пользователя',NULL,NULL,1536745767,1536745767),('updateSelfAccount',2,'Обновить свой аккаунт пользователя',NULL,NULL,1536745767,1536745767),('updateSelfPassword',2,'Обновить свой пароль пользователя',NULL,NULL,1536745767,1536745767),('updateSelfProfile',2,'Обновить свой профиль пользователя',NULL,NULL,1536745767,1536745767),('updateUser',2,'Обновить пользователя',NULL,NULL,1536745767,1536745767),('updateUserAccount',2,'Обновить аккаунт пользователя',NULL,NULL,1536745767,1536745767),('updateUserPassword',2,'Обновить пароль пользователя',NULL,NULL,1536745767,1536745767),('updateUserProfile',2,'Обновить профиль пользователя',NULL,NULL,1536745767,1536745767),('user',1,NULL,NULL,NULL,1536745767,1536745767);
 /*!40000 ALTER TABLE `auth_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +80,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `auth_item_child`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `auth_item_child` (
   `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
@@ -106,7 +107,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `auth_rule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `auth_rule` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `data` blob,
@@ -122,7 +123,7 @@ CREATE TABLE `auth_rule` (
 
 LOCK TABLES `auth_rule` WRITE;
 /*!40000 ALTER TABLE `auth_rule` DISABLE KEYS */;
-INSERT INTO `auth_rule` VALUES ('isCurrentUser','O:31:\"components\\rbac\\CurrentUserRule\":3:{s:4:\"name\";s:13:\"isCurrentUser\";s:9:\"createdAt\";i:1484826477;s:9:\"updatedAt\";i:1484826477;}',1484826477,1484826477);
+INSERT INTO `auth_rule` VALUES ('isCurrentUser',_binary 'O:31:\"components\\rbac\\CurrentUserRule\":3:{s:4:\"name\";s:13:\"isCurrentUser\";s:9:\"createdAt\";i:1536745767;s:9:\"updatedAt\";i:1536745767;}',1536745767,1536745767);
 /*!40000 ALTER TABLE `auth_rule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +133,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `menu`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
@@ -161,12 +162,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `migration`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `migration` (
   `version` varchar(180) NOT NULL,
   `apply_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,7 +176,7 @@ CREATE TABLE `migration` (
 
 LOCK TABLES `migration` WRITE;
 /*!40000 ALTER TABLE `migration` DISABLE KEYS */;
-INSERT INTO `migration` VALUES ('m000000_000000_base',1484826426),('m140209_132017_init',1484826447),('m140403_174025_create_account_table',1484826449),('m140504_113157_update_tables',1484826457),('m140504_130429_create_token_table',1484826459),('m140506_102106_rbac_init',1484826434),('m140602_111327_create_menu_table',1484826475),('m140830_171933_fix_ip_field',1484826461),('m140830_172703_change_account_table_name',1484826461),('m141222_110026_update_ip_field',1484826462),('m141222_135246_alter_username_length',1484826464),('m150614_103145_update_social_account_table',1484826469),('m150623_212711_fix_username_notnull',1484826469),('m151124_131143_init_rbac',1484826479),('m151218_234654_add_timezone_to_profile',1484826470),('m160312_050000_create_user',1484826475),('m160929_103127_add_last_login_at_to_user_table',1484826471);
+INSERT INTO `migration` VALUES ('Da\\User\\Migration\\m000000_000001_create_user_table',1536745763),('Da\\User\\Migration\\m000000_000002_create_profile_table',1536745764),('Da\\User\\Migration\\m000000_000003_create_social_account_table',1536745764),('Da\\User\\Migration\\m000000_000004_create_token_table',1536745765),('Da\\User\\Migration\\m000000_000005_add_last_login_at',1536745765),('Da\\User\\Migration\\m000000_000006_add_two_factor_fields',1536745765),('Da\\User\\Migration\\m000000_000007_enable_password_expiration',1536745765),('Da\\User\\Migration\\m000000_000008_add_last_login_ip',1536745766),('Da\\User\\Migration\\m000000_000009_add_gdpr_consent_fields',1536745766),('m000000_000000_base',1536741534),('m140506_102106_rbac_init',1536745766),('m140602_111327_create_menu_table',1536745767),('m151124_131143_init_rbac',1536745767),('m160312_050000_create_user',1536745767),('m170907_052038_rbac_add_index_on_auth_assignment_user_id',1536745768),('m180523_151638_rbac_updates_indexes_without_prefix',1536745768);
 /*!40000 ALTER TABLE `migration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +186,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `profile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `profile` (
   `user_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -194,10 +195,10 @@ CREATE TABLE `profile` (
   `gravatar_id` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `location` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `bio` text COLLATE utf8_unicode_ci,
   `timezone` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bio` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`user_id`),
-  CONSTRAINT `fk_user_profile` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  CONSTRAINT `fk_profile_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -216,22 +217,22 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `social_account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `social_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `provider` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `client_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `data` text COLLATE utf8_unicode_ci,
   `code` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` int(11) DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `data` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `account_unique` (`provider`,`client_id`),
-  UNIQUE KEY `account_unique_code` (`code`),
-  KEY `fk_user_account` (`user_id`),
-  CONSTRAINT `fk_user_account` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  UNIQUE KEY `idx_social_account_provider_client_id` (`provider`,`client_id`),
+  UNIQUE KEY `idx_social_account_code` (`code`),
+  KEY `fk_social_account_user` (`user_id`),
+  CONSTRAINT `fk_social_account_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -250,14 +251,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `token` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `code` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` int(11) NOT NULL,
   `type` smallint(6) NOT NULL,
-  UNIQUE KEY `token_unique` (`user_id`,`code`,`type`),
-  CONSTRAINT `fk_user_token` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  `created_at` int(11) NOT NULL,
+  UNIQUE KEY `idx_token_user_id_code_type` (`user_id`,`code`,`type`),
+  CONSTRAINT `fk_token_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -276,25 +277,32 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password_hash` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `confirmed_at` int(11) DEFAULT NULL,
   `unconfirmed_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `blocked_at` int(11) DEFAULT NULL,
   `registration_ip` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL,
   `flags` int(11) NOT NULL DEFAULT '0',
+  `confirmed_at` int(11) DEFAULT NULL,
+  `blocked_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL,
   `last_login_at` int(11) DEFAULT NULL,
+  `last_login_ip` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `auth_tf_key` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `auth_tf_enabled` tinyint(1) DEFAULT '0',
+  `password_changed_at` int(11) DEFAULT NULL,
+  `gdpr_consent` tinyint(1) DEFAULT '0',
+  `gdpr_consent_date` int(11) DEFAULT NULL,
+  `gdpr_deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_unique_username` (`username`),
-  UNIQUE KEY `user_unique_email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  UNIQUE KEY `idx_user_username` (`username`),
+  UNIQUE KEY `idx_user_email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -315,4 +323,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-19 11:50:31
+-- Dump completed on 2018-09-12 17:27:28

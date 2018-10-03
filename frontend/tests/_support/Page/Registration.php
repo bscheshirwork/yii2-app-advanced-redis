@@ -13,9 +13,10 @@ class Registration
      * public static $formSubmitButton = "#mainForm input[type=submit]";
      */
 
-    public static $emailField = '#register-form-email';
-    public static $usernameField = '#register-form-username';
-    public static $passwordField = '#register-form-password';
+    public static $emailField = 'form[action*="register"] input[name*="email"]';
+    public static $usernameField = 'form[action*="register"] input[name*="username"]';
+    public static $passwordField = 'form[action*="register"] input[name*="password"]';
+    public static $gdprCheckbox = 'form[action*="register"] input[type="checkbox"][name*="gdpr"]';
     public static $submitButton = 'form[action*="register"] button[type=submit]';
 
     /**
@@ -33,7 +34,7 @@ class Registration
      * @param $email
      * @return $this
      */
-    public function register($email, $username = '', $password = null)
+    public function register($email, $username = '', $password = null, $consent = false)
     {
         $I = $this->tester;
 
@@ -44,6 +45,8 @@ class Registration
         if ($password !== null) {
             $I->fillField(self::$passwordField, $password);
         }
+        if ($consent)
+            $I->checkOption(self::$gdprCheckbox);
         $I->click(self::$submitButton);
 
         return $this;
