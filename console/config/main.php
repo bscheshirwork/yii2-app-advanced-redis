@@ -35,7 +35,6 @@ return [
             'migrationPath' => [
                 '@app/migrations',
                 '@yii/rbac/migrations/',
-                '@mdm/admin/migrations',
             ],
             'migrationNamespaces' => [
                 'Da\User\Migration',

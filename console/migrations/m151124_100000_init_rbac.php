@@ -3,7 +3,7 @@
 use components\rbac\CurrentUserRule;
 use yii\db\Migration;
 
-class m151124_131143_init_rbac extends Migration
+class m151124_100000_init_rbac extends Migration
 {
     public function up()
     {
