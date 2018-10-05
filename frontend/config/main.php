@@ -30,11 +30,49 @@ return [
                         'class' => yii\filters\AccessControl::class,
                         'rules' => [
                             ['allow' => true, 'actions' => ['confirm']], // email confirmation from new email
-                            ['allow' => true, 'actions' => ['privacy', 'gdprdelete', 'export']],
+                            ['allow' => true, 'actions' => ['privacy', 'export'], 'permissions' => ['updateSelfProfile']],
+                            ['allow' => true, 'actions' => ['gdprdelete',], 'permissions' => ['updateSelfAccount']],
+                            ['allow' => true, 'actions' => ['two-factor', 'two-factor-enable', 'two-factor-disable'], 'permissions' => ['updateSelfAccount']],
                             ['allow' => true, 'actions' => ['account'], 'permissions' => ['updateSelfAccount']],
                             ['allow' => true, 'actions' => ['profile'], 'permissions' => ['updateSelfProfile']],
+                            ['allow' => true, 'actions' => ['networks', 'disconnect'], 'permissions' => ['updateSelfAccount']],
                         ],
                     ],
+                ],
+//                'security' => [
+//                    'class' => \Da\User\Controller\SettingsController::class,
+//                    'as access' => [
+//                        'class' => yii\filters\AccessControl::class,
+//                        'rules' => [
+//                            ['allow' => true, 'actions' => ['login', 'logout', 'confirm']],
+//                            ['allow' => true, 'actions' => ['auth', 'blocked']],
+//                        ],
+//                    ],
+//                ],
+                'recovery' => [
+                    'class' => \Da\User\Controller\RecoveryController::class,
+                    'on ' . \Da\User\Event\FormEvent::EVENT_AFTER_REQUEST => function (\Da\User\Event\FormEvent $event) {
+                        \Yii::$app->controller->redirect(['/user/security/login']);
+                        \Yii::$app->end();
+                    },
+                    'on ' . \Da\User\Event\ResetPasswordEvent::EVENT_AFTER_RESET => function (\Da\User\Event\ResetPasswordEvent $event) {
+                        if ($event->token->user ?? false) {
+                            \Yii::$app->user->login($event->token->user);
+                        }
+                        \Yii::$app->controller->redirect(\Yii::$app->getUser()->getReturnUrl());
+                        \Yii::$app->end();
+                    },
+                ],
+                'registration' => [
+                    'class' => \Da\User\Controller\RegistrationController::class,
+                    'on ' . \Da\User\Event\FormEvent::EVENT_AFTER_REGISTER => function (\Da\User\Event\FormEvent $event) {
+                        \Yii::$app->controller->redirect(['/user/security/login']);
+                        \Yii::$app->end();
+                    },
+                    'on ' . \Da\User\Event\FormEvent::EVENT_AFTER_RESEND => function (\Da\User\Event\FormEvent $event) {
+                        \Yii::$app->controller->redirect(['/user/security/login']);
+                        \Yii::$app->end();
+                    },
                 ],
                 'admin' => [
                     'class' => Da\User\Controller\AdminController::class,
