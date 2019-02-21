@@ -9,6 +9,11 @@ return [
     ],
     'vendorPath' => dirname(__DIR__, 2) . '/vendor',
     'components' => [
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'charset' => 'utf8mb4',
+            'enableSchemaCache' => true,
+        ],
         'cache' => [
             'class' => yii\redis\Cache::class,
             'redis' => 'redis' // id of the connection application component
