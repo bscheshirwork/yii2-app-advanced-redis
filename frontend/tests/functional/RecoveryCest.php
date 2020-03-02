@@ -73,7 +73,13 @@ class RecoveryCest
         $token = $I->grabRecord(Token::class, ['user_id' => $user->id, 'type' => Token::TYPE_RECOVERY]);
         $resetPage->reset('newpass', ['id' => $user->id, 'code' => $token->code]);
         $I->see(Yii::t('user', 'Password has been changed'));
+        //improve autologin after change password. Logout before next step.
+        $I->dontSee(Yii::t('user', 'Login'));
+        $I->see($user->username);
 
+        Yii::$app->user->logout();
+
+        $I->amGoingTo('login with new password');
         $loginPage->login($user->email, 'qwerty');
         $I->see(Yii::t('user', 'Invalid login or password'));
         $loginPage->login($user->email, 'newpass');
