@@ -49,12 +49,12 @@ class RecoveryCest
         $I->amGoingTo('try to request recovery token for unconfirmed account');
         $user = $I->grabFixture('user', 'unconfirmed');
         $page->recover($user->email);
-        $I->see(Yii::t('user', 'An email has been sent with instructions for resetting your password'));
+        $I->see(Yii::t('user', 'An email with instructions to create a new password has been sent to {email} if it is associated with an {appName} account. Your existing password has not been changed.', ['email' => $user->email, 'appName' => Yii::$app->name]));
 
         $I->amGoingTo('try to request recovery token');
         $user = $I->grabFixture('user', 'user');
         $page->recover($user->email);
-        $I->see(Yii::t('user', 'An email has been sent with instructions for resetting your password'));
+        $I->see(Yii::t('user', 'An email with instructions to create a new password has been sent to {email} if it is associated with an {appName} account. Your existing password has not been changed.', ['email' => $user->email, 'appName' => Yii::$app->name]));
         $user = $I->grabRecord(User::class, ['email' => $user->email]);
         $token = $I->grabRecord(Token::class, ['user_id' => $user->id, 'type' => Token::TYPE_RECOVERY]);
         /** @var yii\swiftmailer\Message $message */
