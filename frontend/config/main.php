@@ -60,6 +60,7 @@ return [
                             \Yii::$app->user->login($event->token->user);
                         }
                         \Yii::$app->controller->redirect(\Yii::$app->getUser()->getReturnUrl());
+                        \Yii::$app->session->setFlash('success', \Yii::t('user', 'Password has been changed'));
                         \Yii::$app->end();
                     },
                 ],
