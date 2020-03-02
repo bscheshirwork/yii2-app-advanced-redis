@@ -19,7 +19,7 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-redis": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
-        "yiisoft/yii2-queue": "~2.0.0",
+        "yiisoft/yii2-queue": "~2.3.0",
         "bscheshirwork/yii2-redis-session": "*@dev",
         "githubjeka/yii2-gui-rbac": "*",
         "2amigos/yii2-usuario": "dev-master",
