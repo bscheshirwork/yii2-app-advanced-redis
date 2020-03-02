@@ -5,7 +5,7 @@ use yii\helpers\Url;
 
 class GdprDelete
 {
-    public static $URL = '/user/settings/gdprdelete';
+    public static $URL = '/user/settings/';
 
     /**
      * Declare UI map for this page here. CSS or XPath allowed.
