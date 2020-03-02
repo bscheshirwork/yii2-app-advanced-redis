@@ -31,7 +31,7 @@ return [
                         'rules' => [
                             ['allow' => true, 'actions' => ['confirm']], // email confirmation from new email
                             ['allow' => true, 'actions' => ['privacy', 'export'], 'permissions' => ['updateSelfProfile']],
-                            ['allow' => true, 'actions' => ['gdprdelete',], 'permissions' => ['updateSelfAccount']],
+                            ['allow' => true, 'actions' => ['gdpr-delete',], 'permissions' => ['updateSelfAccount']],
                             ['allow' => true, 'actions' => ['two-factor', 'two-factor-enable', 'two-factor-disable'], 'permissions' => ['updateSelfAccount']],
                             ['allow' => true, 'actions' => ['account'], 'permissions' => ['updateSelfAccount']],
                             ['allow' => true, 'actions' => ['profile'], 'permissions' => ['updateSelfProfile']],
