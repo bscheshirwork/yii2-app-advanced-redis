@@ -65,6 +65,12 @@ return [
             'allowPasswordRecovery' => true,
             'allowAdminPasswordRecovery' => true,
 
+            'mailParams' => [
+                'fromEmail' => function() {
+                    return [Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']];
+                }
+            ],
+
             'classMap' => [
                 'User' => [
                     'class' => \Da\User\Model\User::class,
