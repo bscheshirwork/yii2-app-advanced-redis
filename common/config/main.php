@@ -46,8 +46,7 @@ return [
             'redis' => 'redis', // id of the connection application component
         ],
         'mailer' => [
-            'class' => \yii\swiftmailer\Mailer::class, // wait for https://github.com/yiisoft/yii2-queue/issues/363
-//            'class' => components\queue\SendMailJob::class,// class SendMailJob extends \yii\swiftmailer\Mailer implements \yii\queue\Job
+            'class' => components\queue\SendMailJob::class,// class SendMailJob extends \yii\swiftmailer\Mailer implements \yii\queue\Job
             'viewPath' => '@common/mail',
         ],
         'authClientCollection' => [
